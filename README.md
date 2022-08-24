@@ -1,4 +1,4 @@
-Start project  -  npm start \n
-main branch - .js \n
-tstest branch - .ts \n
+Start project  -  npm start <br />
+main branch - .js <br />
+tstest branch - .ts <br />
 
