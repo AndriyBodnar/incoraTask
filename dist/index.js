@@ -1,12 +1,15 @@
-var _a;
-import { Show, Movie, Episode, Series } from "./Shows";
-import StreamingService from "./StreamingService";
-import Subscription from "./Subscription";
-import User from "./User";
+import { Show, Movie, Episode, Series } from "./Shows.js";
+import StreamingService from "./StreamingService.js";
+import Subscription from "./Subscription.js";
+import User from "./User.js";
 import data from "./shows.json" assert { type: "json" };
 export const randomNumber = (start, end) => {
     return +(Math.random() * (end - start) + start).toFixed(0);
 };
+
+
+
+
 function time() {
     let releaseDate;
     let year = randomNumber(2005, new Date().getFullYear());
@@ -23,7 +26,16 @@ function time() {
         releaseDate = `${randomNumber(1, 30)}-${randomNumber(1, 12)}-${year}`;
     return releaseDate;
 }
+
+
+
+
+
+//create new User
 let user = new User();
+
+
+
 let genres = {
     action: "action",
     comedy: "comedy",
@@ -34,10 +46,20 @@ let genres = {
     romance: "romance",
     thriller: "thriller",
 };
-let shows = [Show, Movie, Episode, Series];
+
+
+
+
+//create StreamingServices
 let netflix = new StreamingService("Netflix");
 let megogo = new StreamingService("Megogo");
+
+
+let shows = [Show, Movie, Episode, Series];
 let streamingServices = [netflix, megogo];
+
+
+//fill streamingServices
 for (let i = 1; i <= 50; i++) {
     let name = data.shows[randomNumber(0, data.shows.length - 1)];
     let show = shows[randomNumber(0, shows.length - 1)];
@@ -48,25 +70,38 @@ for (let i = 1; i <= 50; i++) {
         ? service.addShow(new Series(`${name}`, genre, releaseDate, randomNumber(1, 20)))
         : service.addShow(new show(`${name}`, genre, releaseDate));
 }
-console.log(user.subscriptions);
+
+
+
+//create subscriptions
 let netflixSubs = new Subscription(netflix);
 let megogoSubs = new Subscription(megogo);
-let megogoSubs2 = new Subscription(megogo);
+
+
+//subs user
 console.log(user.subscribe(netflixSubs));
 console.log(user.subscribe(megogoSubs));
-console.log(user.subscribe(megogoSubs));
-console.log(user.subscribe(megogoSubs2));
-console.log(user.subscriptions);
+console.log(user.subscribe(megogoSubs)); //expected Already subscribed: Megogo
+
+
 console.log(netflix.addShow(new Movie("Home alone", genres.comedy, `17-11-2006`)));
-console.log(netflix.addShow(new Movie("Home alone", genres.comedy, `17-11-2006`)));
-console.log(megogoSubs.watch("Home alone 2"));
+console.log(netflix.addShow(new Movie("Home alone", genres.comedy, `17-11-2006`))); // expected Home alone  already have been in platform
+
+
+console.log(megogoSubs.watch("Home alone 2")); //expected Megogo doesn't have Home alone 2
+
+
+//check getRecommendationByGenre, getRecommendationTrending
 console.log(netflixSubs.getRecommendationByGenre(genres.horror));
 console.log(netflixSubs.getRecommendationTrending());
 console.log(netflix.getMostViewedShowsOfGenre(genres.romance, true));
 console.log(netflix.getMostViewedShowsOfYear("2006", true));
+
+
+//check watch
 console.log(netflix.viewsByShowNames.get(netflix.getMostViewedShowsOfYear("2006", true)[0].name));
 console.log(netflixSubs.watch(netflix.getMostViewedShowsOfYear("2006")[0].name));
-console.log(netflix.viewsByShowNames.get((_a = netflix.getMostViewedShowsOfYear("2006")[0]) === null || _a === void 0 ? void 0 : _a.name));
+console.log(netflix.viewsByShowNames.get(netflix.getMostViewedShowsOfYear("2006")[0]?.name));
 console.log(netflixSubs.watch(netflix.getMostViewedShowsOfYear("2006")[0].name));
 console.log(netflixSubs.watch(netflix.getMostViewedShowsOfYear("2006")[0].name));
 console.log(netflix.viewsByShowNames.get(netflix.getMostViewedShowsOfYear("2006")[0].name));

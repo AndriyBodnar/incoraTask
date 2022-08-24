@@ -3,6 +3,7 @@ import { randomNumber } from "./index.js";
 const warning = chalk.bgRed.underline.bold;
 const warningOrange = chalk.hex("#FFA500").underline;
 export default class Subscription {
+    streamingService;
     constructor(streamingService) {
         this.streamingService = streamingService;
     }

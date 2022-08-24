@@ -1,12 +1,12 @@
 import chalk from "chalk";
-import { randomNumber } from "./index";
+import { randomNumber } from "./index.js";
 const warning = chalk.hex("#FFA500").underline;
 export default class StreamingService {
-    constructor(name, shows = [], viewsByShowNames = new Map()) {
+    constructor(name, shows = [], viewsByShowNames = new Map(), showsList = []) {
         this.name = name;
         this.shows = shows;
         this.viewsByShowNames = viewsByShowNames;
-        this.showsList = [];
+        this.showsList = showsList;
     }
     addShow(show) {
         if (!this.showsList.includes(show.name)) {
@@ -25,7 +25,7 @@ export default class StreamingService {
             .getMostViewed(this.viewsByShowNames);
         if (list)
             console.log(helperList(sortByYear, this.viewsByShowNames, year));
-        return sortByYear;
+        return !!sortByYear.length ? sortByYear : `Empty most viewed year`;
     }
     getMostViewedShowsOfGenre(genre, list = false) {
         let sortByGenre = this.shows

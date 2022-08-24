@@ -1,5 +1,5 @@
 import { Show, Movie, Episode, Series } from "./Shows";
-import StreamingService from "./StreamingService";
+import StreamingService from "./StreamingService.js";
 import Subscription from "./Subscription";
 
 import User from "./User";

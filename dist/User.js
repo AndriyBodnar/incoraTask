@@ -1,9 +1,10 @@
 import chalk from "chalk";
 const error = chalk.bold.bgRed;
 export default class User {
+    subscriptions;
+    subscriptionsList = [];
     constructor(subscriptions = []) {
         this.subscriptions = subscriptions;
-        this.subscriptionsList = [];
     }
     get subs() {
         return this.subscriptions;
